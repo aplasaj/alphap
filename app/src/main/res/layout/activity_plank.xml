@@ -6,120 +6,55 @@
     android:layout_height="match_parent"
     tools:context="com.example.antonio.alphap.Plank">
 
-    <TextView
-        android:id="@+id/plankl1"
+    <EditText
+        android:id="@+id/UnosDuzineDaskeEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:text="duzina1"
-        app:layout_constraintLeft_toRightOf="@+id/textView7"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Duzina daske"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        tools:layout_editor_absoluteX="85dp" />
 
-    <TextView
-        android:id="@+id/plankl2"
+    <EditText
+        android:id="@+id/UnosSirineDaskeEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:text="duzina2"
-        app:layout_constraintLeft_toRightOf="@+id/plankl1"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Sirina daske"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@+id/UnosDuzineDaskeEditText"
+        tools:layout_editor_absoluteX="85dp" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Paleta duzine"
-        tools:layout_editor_absoluteX="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="debljine"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        tools:layout_editor_absoluteX="59dp" />
+    <Button
+        android:id="@+id/unosdaskeupaletuGumb"
+        android:layout_width="380dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="92dp"
+        android:onClick="Unosdaske"
+        android:text="Unos daske u paletu"
+        app:layout_constraintTop_toBottomOf="@+id/UnosSirineDaskeEditText"
+        tools:layout_editor_absoluteX="2dp" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="rednog broja n+1"
-        tools:layout_editor_absoluteX="37dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="i klase "
-        app:layout_constraintLeft_toRightOf="@+id/textView10"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="35dp"
-        app:layout_constraintTop_toBottomOf="@+id/debljinapreview" />
-
-    <TextView
-        android:id="@+id/klasa2view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="klasa"
-        android:layout_marginTop="35dp"
-        app:layout_constraintTop_toBottomOf="@+id/debljinapreview"
-        app:layout_constraintLeft_toRightOf="@+id/textView11"
-        android:layout_marginLeft="8dp" />
-
-    <TextView
-        android:id="@+id/debljinapreview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="25dp"
-        android:text="debljina"
-        app:layout_constraintLeft_toRightOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/plankl1" />
+        android:layout_marginTop="8dp"
+        android:text="UNOS DASAKA U PALETU"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="90dp" />
 
     <TextView
         android:id="@+id/idpreview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="id"
-        tools:layout_editor_absoluteX="97dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        android:layout_width="384dp"
+        android:layout_height="74dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="382dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="89dp"
-        android:text="Unos daske"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        tools:layout_editor_absoluteX="1dp" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="378dp"
-        android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="                              Sirina daske"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="303dp" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="381dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="7dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="                             Duzina daske"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
-        tools:layout_editor_absoluteX="2dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/klasa2view"
-        app:layout_constraintVertical_bias="0.51" />
 </android.support.constraint.ConstraintLayout>

@@ -1,14 +1,9 @@
 package com.example.antonio.alphap;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.app.AlertDialog;
+import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,22 +17,25 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+/**
+ * Created by Antonio on 10/26/17.
+ */
 
-public class BackgroundWorker extends AsyncTask<String,Void,String> {
-    Context context;
-    AlertDialog alertDialog;
-    BackgroundWorker (Context ctx) {
-        context = ctx;
+public class BackgroundWorker2 extends AsyncTask<Integer, Void, String> {
+    Context context2;
+    AlertDialog alertDialog2;
+    BackgroundWorker2 (Context ctx2) {
+        context2 = ctx2;
     }
     @Override
-    protected String doInBackground(String... params) {
-        String type = params[0];
-        String duzina1 = params[1];
-        String duzina2 = params[2];
-        String debljina = params[3];
-        String selectedClass2 = params[4];
-        String login_url = "http://www.tehnooz.hr/insertpallet.php";
-        if(type.equals("uploadpallet")) {
+    protected String doInBackground(Integer... params) {
+        int type = params[0];
+        int duzinadaske = params[1];
+        int sirinadaske = params[2];
+        int resultid = params[3];
+
+        String login_url = "http://www.tehnooz.hr/insertplanks.php";
+      //  if(type==9999) {
             try {
                 URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -46,12 +44,10 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("duzina1","UTF-8")+"="+URLEncoder.encode(duzina1,"UTF-8")+"&"
-                        +URLEncoder.encode("duzina2","UTF-8")+"="+URLEncoder.encode(duzina2,"UTF-8")
+                String post_data = URLEncoder.encode("duzinadaske","UTF-8")+"="+URLEncoder.encode(String.valueOf(duzinadaske),"UTF-8")+"&"
+                        +URLEncoder.encode("sirinadaske","UTF-8")+"="+URLEncoder.encode(String.valueOf(sirinadaske),"UTF-8")
                         +"&"
-                        +URLEncoder.encode("debljina","UTF-8")+"="+URLEncoder.encode(debljina,"UTF-8")
-                        +"&"
-                        +URLEncoder.encode("selectedClass2","UTF-8")+"="+URLEncoder.encode(selectedClass2,"UTF-8");
+                        +URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(resultid),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -74,34 +70,24 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+      //  }
         return null;
     }
 
+    @Override
+    protected void onPostExecute(String aVoid) {
+        super.onPostExecute(aVoid);
+         alertDialog2 = new AlertDialog.Builder(context2).create();
+        alertDialog2.setTitle("Unos daske uspješan");
+         alertDialog2.show();
+
+    }
 
     @Override
     protected void onPreExecute() {
-//        alertDialog = new AlertDialog.Builder(context).create();
-//        alertDialog.setTitle("Login Status");
+        super.onPreExecute();
+
     }
-
-    @Override
-    protected void onPostExecute(String result) {
-        // alertDialog = new AlertDialog.Builder(context).create();
-        // alertDialog.setTitle("Login Status");
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("resultid", result); //InputString: from the EditText
-        editor.commit();
-    }
-
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-    }
-
 
 
 }
-
