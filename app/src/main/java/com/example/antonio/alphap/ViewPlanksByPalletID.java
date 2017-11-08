@@ -54,8 +54,8 @@ public class ViewPlanksByPalletID extends AppCompatActivity {
         String serverUrl;
         public getJsonResponse(){
             mProgressDialog = new ProgressDialog(ViewPlanksByPalletID.this);
-            mProgressDialog.setMessage("Please Wait");
-            mProgressDialog.setTitle("Processing");
+            mProgressDialog.setMessage("Molimo sačekajte");
+            mProgressDialog.setTitle("Obrada vašeg zahtjeva");
             mProgressDialog.setCancelable(false);
 
         }

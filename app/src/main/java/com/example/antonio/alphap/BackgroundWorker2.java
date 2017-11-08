@@ -77,9 +77,10 @@ public class BackgroundWorker2 extends AsyncTask<Integer, Void, String> {
     @Override
     protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
-         alertDialog2 = new AlertDialog.Builder(context2).create();
-        alertDialog2.setTitle("Unos daske uspješan");
-         alertDialog2.show();
+//         alertDialog2 = new AlertDialog.Builder(context2).create();
+//        alertDialog2.setTitle("Unos daske uspješan");
+//        alertDialog2.setMessage("Pritisnite bilo gdje za nastavak rada");
+//         alertDialog2.show();
 
     }
 

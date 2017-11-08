@@ -120,6 +120,9 @@ public class NewPallet extends AppCompatActivity {
                         intent33.putExtra("Duzina2", duz2);
                         intent33.putExtra("Klasa", selectedClass2);
                         intent33.putExtra("Debljina", deb);
+                        duzina1.setText("");
+
+                        debljina.setText("");
                         startActivity(intent33);
 
                     }
