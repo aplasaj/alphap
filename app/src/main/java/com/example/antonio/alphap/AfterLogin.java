@@ -11,6 +11,7 @@ public class AfterLogin extends AppCompatActivity {
     private static Button logoutstatic;
     private static Button newpalletstatic;
     private static Button closedpalletsstatic;
+    private static Button openpalletsstatic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +19,7 @@ public class AfterLogin extends AppCompatActivity {
         signout();
         newPallet();
         ClosePal();
+        OpenPallets();
     }
     public void signout() {
         logoutstatic=(Button)findViewById(R.id.signoutbutton);
@@ -57,6 +59,19 @@ public class AfterLogin extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent10 = new Intent("com.example.antonio.alphap.ClosedPal");
                         startActivity(intent10);
+                    }
+                }
+        );
+
+    }
+    public void OpenPallets() {
+        openpalletsstatic=(Button)findViewById(R.id.OpenedPalletsbtn);
+        openpalletsstatic.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent65 = new Intent("com.example.antonio.alphap.OpenPal");
+                        startActivity(intent65);
                     }
                 }
         );

@@ -32,86 +32,113 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class Plank extends AppCompatActivity {
+public class Plank2 extends AppCompatActivity {
     EditText duzinadaskeR;
     EditText sirinadaskeR;
     ProgressDialog mProgressDialog;
     String JSON_RESPONSE;
     TextView naslov;
-    String duzinadaskeizradia;
+    String duzinadaskeizradia="0";
+    int duzina1;
+    int duzina2;
+    int debljina;
+    int idpalete;
+    String klasapalete;
     public static final String TAG = Plank.class.getSimpleName();
+    Button insertplank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plank);
         Bundle duzine = getIntent().getExtras();
-        int duzina1=(int)duzine.get("Duzina1");
-        int duzina2=(int)duzine.get("Duzina2");
-        int debljina=(int)duzine.get("Debljina");
-        final String klasapalete=(String) duzine.get("Klasa");
-        String resultidstring = getPalID();
+         duzina1=(int)duzine.get("Duzina1");
+         duzina2=(int)duzine.get("Duzina2");
+         debljina=(int)duzine.get("Debljina");
+         idpalete=(int)duzine.get("IDotvorene");
+         klasapalete=(String) duzine.get("Klasa");
+        insertplank=(Button)findViewById(R.id.unosdaskeupaletuGumb);
+
+
 
         naslov = (TextView)findViewById(R.id.textView10);
-        naslov.setText("UNOS DASAKA U PALETU BROJ  "+ resultidstring);
+        naslov.setText("UNOS DASAKA U PALETU BROJ  "+ idpalete);
 
         addRadioButtons(duzina1,duzina2);
 
-        String resultid = getPalID();    //dobavljam id palete
-
         final TextView txtview5 =(TextView)findViewById(R.id.idpreview);
-          txtview5.setText("Paleta je klase "+ klasapalete + "duljine "+ duzina1+ "-"+  duzina2+ "debljine "+ debljina);
+        txtview5.setText("Paleta je klase "+ klasapalete + "duljine "+ duzina1+ "-"+  duzina2+
+                "debljine "+ debljina);
+
+
+
+
+
+
+
     }
-public String getPalID() {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);    //dobavljam id palete
-    String resultid = prefs.getString("resultid", "no id"); //no id: default value
-    return resultid;
-}
 
 
- public void Unosdaske(View view){
-     String resultidstring = getPalID();    //dobavljam id palete
-     EditText sirinadaskeedittext = (EditText) findViewById(R.id.UnosSirineDaskeEditText);
-     String testic=sirinadaskeedittext.getText().toString();
-     if ((testic.equals(""))||(duzinadaskeizradia.equals("0"))){
-         Toast.makeText(Plank.this, "Niste unijeli sve podatke. Unesite duljinu i širinu daske " +
-                         "i pokušajte ponovno.",
-                 Toast.LENGTH_SHORT).show();
-         return;
-     }
-     else {
 
-   //  duzinadaskeR=(EditText)findViewById(R.id.UnosDuzineDaskeEditText);
-     sirinadaskeR=(EditText)findViewById(R.id.UnosSirineDaskeEditText);
+    public void Unosdaske(View view){
 
-   //  String duzinadaskeString=duzinadaskeR.getText().toString();
-     String sirinadaskeString=sirinadaskeR.getText().toString();
+        EditText sirinadaskeedittext = (EditText) findViewById(R.id.UnosSirineDaskeEditText);
+        String testic=sirinadaskeedittext.getText().toString();
+        if ((testic.equals(""))||(duzinadaskeizradia.equals("0"))){
+            Toast.makeText(Plank2.this, "Niste unijeli sve podatke. Unesite duljinu i širinu daske " +
+                            "i pokušajte ponovno.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
 
-     int duzinadaske=Integer.parseInt(duzinadaskeizradia);
-     int sirinadaske=Integer.parseInt(sirinadaskeString);
-     int  resultid= Integer.parseInt(resultidstring);
-     int type=9999;
-     Toast.makeText(Plank.this,"Daska unešena",
-             Toast.LENGTH_SHORT).show();
-   //  duzinadaskeR.setText("");
-     sirinadaskeR.setText("");
+            //  duzinadaskeR=(EditText)findViewById(R.id.UnosDuzineDaskeEditText);
+            sirinadaskeR = (EditText) findViewById(R.id.UnosSirineDaskeEditText);
+            String sirinadaskeString = sirinadaskeR.getText().toString();
+            int duzinadaske = Integer.parseInt(duzinadaskeizradia);
+            int sirinadaske = Integer.parseInt(sirinadaskeString);
+            int resultid = idpalete;
 
-     BackgroundWorker2 backgroundWorker2 = new BackgroundWorker2(this); //this je context
-     backgroundWorker2.execute(type,duzinadaske,sirinadaske,resultid);
 
-     }
+            int granicaduzina = 10;
+            int granicasirina = 5;
+            if ((duzinadaske < granicaduzina) || (sirinadaske < granicasirina))
+            //tu se radi provjera da li je unešena premala vrijednost ili nula
+            {
+                Toast.makeText(Plank2.this, "Preniske vrijednosti parametara. " +
+                                "Unesite pravilne podatke i pokušajte ponovno.",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
 
- }
+            int type = 9999;
+            Toast.makeText(Plank2.this, "Daska unešena",
+                    Toast.LENGTH_SHORT).show();
+            //  duzinadaskeR.setText("");
+            sirinadaskeR.setText("");
+
+            BackgroundWorker2 backgroundWorker2 = new BackgroundWorker2(this); //this je context
+            backgroundWorker2.execute(type, duzinadaske, sirinadaske, resultid);
+            return;
+
+            //  String duzinadaskeString=duzinadaskeR.getText().toString();
+        }
+
+
+
+
+    }
 
     public void Zatvaranjepalete(View view){
-        AlertDialog.Builder closingpalletdialog = new AlertDialog.Builder(Plank.this);
-        closingpalletdialog.setMessage("Jeste li sigurni da želite zatvoriti paletu? Nakon zatvaranja palete unos dasaka u paletu više nije moguć")
+        AlertDialog.Builder closingpalletdialog = new AlertDialog.Builder(Plank2.this);
+        closingpalletdialog.setMessage("Jeste li sigurni da želite zatvoriti paletu?" +
+                " Nakon zatvaranja palete unos dasaka u paletu više nije moguć")
                 .setCancelable(false)
                 .setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        new Plank.getJsonResponse().execute();
+                        new Plank2.getJsonResponse().execute();
                     }
                 })
                 .setNegativeButton("Ne", new DialogInterface.OnClickListener() {
@@ -144,7 +171,7 @@ public String getPalID() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     int oznaceno=duzineradio.getCheckedRadioButtonId();
-                     duzinadaskeizradia=Integer.toString(oznaceno);
+                    duzinadaskeizradia=Integer.toString(oznaceno);
 
                 }
             });
@@ -155,7 +182,7 @@ public String getPalID() {
     public class getJsonResponse extends AsyncTask<Void,Void,String> {
         String serverUrl;
         public getJsonResponse(){
-            mProgressDialog = new ProgressDialog(Plank.this);
+            mProgressDialog = new ProgressDialog(Plank2.this);
             mProgressDialog.setMessage("Molimo sačekajte");
             mProgressDialog.setTitle("Obrada vašeg zahtjeva");
             mProgressDialog.setCancelable(false);
@@ -172,7 +199,7 @@ public String getPalID() {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                 String resultidstring = getPalID();
+
                 //dobavlja id palete koju zatvaramo
 
                 URL url = new URL(serverUrl);
@@ -184,7 +211,7 @@ public String getPalID() {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(resultidstring,"UTF-8");
+                String post_data = URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -222,7 +249,8 @@ public String getPalID() {
         protected void onPostExecute(String result) {
             //set the result which is returned by doInBackground() method to result textView
             mProgressDialog.dismiss();
-         //   duzinadaskeR.setText("");
+            //   duzinadaskeR.setText("");
+          //  sirinadaskeR.setText("");
             Intent intent123 = new Intent("com.example.antonio.alphap.AfterLogin");
             startActivity(intent123);
         }

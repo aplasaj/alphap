@@ -57,6 +57,22 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".OpenPal">
+            <intent-filter>
+                <action android:name="com.example.antonio.alphap.OpenPal" />
+                <action android:name="com.example.antonio.alphap.AfterLogin" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Plank2">
+            <intent-filter>
+                <action android:name="com.example.antonio.alphap.Plank2" />
+                <action android:name="com.example.antonio.alphap.OpenPal" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

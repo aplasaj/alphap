@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -31,7 +32,7 @@ import java.net.URLEncoder;
 public class NewPallet extends AppCompatActivity {
     private static Button backfromnewpallet;
     private static Button gotoplankinsert;
-    String selectedClass2;
+    String selectedClass2="0";
     EditText duzina1;
     EditText duzina2;
     EditText debljina;
@@ -97,6 +98,14 @@ public class NewPallet extends AppCompatActivity {
         String deb11=debljina.getText().toString();
         String type="uploadpallet";
 
+
+        if ((duz11.equals(""))||(duz22.equals(""))||(deb11.equals(""))||(selectedClass2.equals("0"))){
+            Toast.makeText(NewPallet.this, "Niste unijeli sve podatke. Unesite sve tražene podatke palete " +
+                            "i pokušajte ponovno.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
         BackgroundWorker backgroundWorker = new BackgroundWorker(this); //this je context
         backgroundWorker.execute(type,duz11,duz22,deb11,selectedClass2);
 
@@ -136,6 +145,7 @@ public class NewPallet extends AppCompatActivity {
         AlertDialog alert = newpalletcreated.create();
         alert.setTitle("Obavijest:");
         alert.show();
+    }
     }
 
 //    public void insPlank() {
