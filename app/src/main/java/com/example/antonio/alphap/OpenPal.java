@@ -258,6 +258,10 @@ public class OpenPal extends AppCompatActivity {
 //            lv.setAdapter(adapter);
         }
     }
+    public void refresh(View view) {
+        finish();
+        startActivity(getIntent());
+     }
 
 
 
@@ -363,6 +367,7 @@ public class OpenPal extends AppCompatActivity {
 //            lv.setAdapter(adapter);
         }
     }
+
 
 
 
