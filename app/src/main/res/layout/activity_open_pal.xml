@@ -7,22 +7,10 @@
     tools:context="com.example.antonio.alphap.OpenPal">
 
 
-    <ListView
-        android:id="@+id/lvid"
-
-        android:layout_width="370dp"
-        android:layout_height="492dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="373dp"
-        android:layout_height="62dp"
+        android:layout_width="599dp"
+        android:layout_height="57dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="4dp"
         android:text="Odaberite broj palete da započnete unos dasaka"
@@ -35,10 +23,25 @@
         android:id="@+id/btnrefresh"
         android:layout_width="199dp"
         android:layout_height="43dp"
-        android:layout_marginStart="92dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="refresh"
         android:text="Osvježi popis"
-        app:layout_constraintBottom_toBottomOf="@+id/lvid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvid" />
+
+    <ListView
+        android:id="@+id/lvid"
+
+        android:layout_width="514dp"
+        android:layout_height="493dp"
+        android:layout_marginBottom="56dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

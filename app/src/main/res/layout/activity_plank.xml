@@ -10,12 +10,38 @@
         android:id="@+id/UnosSirineDaskeEditText"
         android:layout_width="399dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Sirina daske (unesite duljinu daske u cm)"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@+id/radiogroup"
-        tools:layout_editor_absoluteX="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radiogroup" />
+
+    <TextView
+        android:id="@+id/twvolume"
+        android:layout_width="131dp"
+        android:layout_height="118dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Kubikaža"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tvlast3planks"
+        app:layout_constraintTop_toBottomOf="@+id/UnosSirineDaskeEditText" />
+
+    <TextView
+        android:id="@+id/tvlast3planks"
+        android:layout_width="500dp"
+        android:layout_height="187dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Zadnje 3 daske u paleti"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UnosSirineDaskeEditText" />
 
     <Button
         android:id="@+id/unosdaskeupaletuGumb"
@@ -23,12 +49,12 @@
         android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="8dp"
         android:onClick="Unosdaske"
         android:text="Unos daske u paletu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UnosSirineDaskeEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/tvlast3planks" />
 
     <TextView
         android:id="@+id/textView10"
@@ -45,8 +71,8 @@
 
     <TextView
         android:id="@+id/idpreview"
-        android:layout_width="328dp"
-        android:layout_height="32dp"
+        android:layout_width="480dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -61,10 +87,11 @@
         android:layout_height="44dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:onClick="Zatvaranjepalete"
         android:text="ZATVARANJE PALETE"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/unosdaskeupaletuGumb" />
 

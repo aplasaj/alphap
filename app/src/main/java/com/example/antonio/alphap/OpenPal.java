@@ -238,7 +238,7 @@ public class OpenPal extends AppCompatActivity {
              duzina2otvorene = tokens.nextToken();
              isporucenootvorene = tokens.nextToken();
              datumotvorene = tokens.nextToken();
-             tw11.setText("ID: "+ idotvorene + " ,DEBLJINA: " + debljinaotvorene+ " ,DUŽINA: " + duzina1otvorene+ "-" + duzina2otvorene+ "                                                                 DATUM OTVARANJA: " + datumotvorene);
+             tw11.setText("ID: "+ idotvorene + " ,DEBLJINA: " + debljinaotvorene+ " ,DUŽINA: " + duzina1otvorene+ "-" + duzina2otvorene+ " ,DATUM OTVARANJA: " + datumotvorene);
 //            ArrayList<String> arr_list= new ArrayList<String>();
 //            String str=result.toString();
 //

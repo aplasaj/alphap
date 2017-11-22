@@ -40,6 +40,9 @@ public class Plank extends AppCompatActivity {
     TextView naslov;
     String duzinadaskeizradia;
     public static final String TAG = Plank.class.getSimpleName();
+    TextView last3planks;
+    int debljina;
+    TextView volumetxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +51,23 @@ public class Plank extends AppCompatActivity {
         Bundle duzine = getIntent().getExtras();
         int duzina1=(int)duzine.get("Duzina1");
         int duzina2=(int)duzine.get("Duzina2");
-        int debljina=(int)duzine.get("Debljina");
+        debljina=(int)duzine.get("Debljina");
         final String klasapalete=(String) duzine.get("Klasa");
         String resultidstring = getPalID();
+        volumetxt=(TextView)findViewById(R.id.twvolume);
 
         naslov = (TextView)findViewById(R.id.textView10);
         naslov.setText("UNOS DASAKA U PALETU BROJ  "+ resultidstring);
 
+        last3planks=(TextView)findViewById(R.id.tvlast3planks);
         addRadioButtons(duzina1,duzina2);
 
         String resultid = getPalID();    //dobavljam id palete
+        new Plank.getlast3planks().execute();
+        new Plank.getvolume().execute();
 
         final TextView txtview5 =(TextView)findViewById(R.id.idpreview);
-          txtview5.setText("Paleta je klase "+ klasapalete + "duljine "+ duzina1+ "-"+  duzina2+ "debljine "+ debljina);
+          txtview5.setText("Paleta je klase "+ klasapalete + " ,duljine "+ duzina1+ "-"+  duzina2+ " ,debljine "+ debljina);
     }
 public String getPalID() {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);    //dobavljam id palete
@@ -98,6 +105,8 @@ public String getPalID() {
 
      BackgroundWorker2 backgroundWorker2 = new BackgroundWorker2(this); //this je context
      backgroundWorker2.execute(type,duzinadaske,sirinadaske,resultid);
+         new Plank.getlast3planks().execute();
+         new Plank.getvolume().execute();
 
      }
 
@@ -227,6 +236,155 @@ public String getPalID() {
             startActivity(intent123);
         }
     }
+    public class getlast3planks extends AsyncTask<Void,Void,String> {
+        String serverUrl;
+        public getlast3planks(){
+            mProgressDialog = new ProgressDialog(Plank.this);
+            mProgressDialog.setMessage("Molimo sačekajte");
+            mProgressDialog.setTitle("Obrada vašeg zahtjeva");
+            mProgressDialog.setCancelable(false);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //set the url from we have to fetch the json response
+            serverUrl = "http://tehnooz.hr/last3planks.php";
+            mProgressDialog.show();
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+
+                //dobavlja id palete koju zatvaramo
+                String idpalete = getPalID();
+                URL url = new URL(serverUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ((JSON_RESPONSE = bufferedReader.readLine()) != null){
+
+                    stringBuilder.append(JSON_RESPONSE + "\n");
+
+                }
+
+                inputStream.close();
+                bufferedReader.close();
+                httpURLConnection.disconnect();
+
+                return stringBuilder.toString().trim();
+
+            } catch (MalformedURLException e) {
+                Log.e(TAG,"MalformedURLException: "+e); //print exception message to log
+            } catch (IOException e) {
+                Log.e(TAG, "IOException: " + e); //print exception message to log
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //set the result which is returned by doInBackground() method to result textView
+            mProgressDialog.dismiss();
+            last3planks.setText(result);
+
+        }
+    }
+
+    public class getvolume extends AsyncTask<Void,Void,String> {
+        String serverUrl;
+        public getvolume(){
+
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //set the url from we have to fetch the json response
+            serverUrl = "http://tehnooz.hr/cubic.php";
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                String idpalete = getPalID();
+                //dobavlja id palete koju zatvaramo
+
+                URL url = new URL(serverUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8")+"&"
+                        +URLEncoder.encode("debljinapalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(debljina),"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine())!= null) {
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+
+            } catch (MalformedURLException e) {
+                Log.e(TAG,"MalformedURLException: "+e); //print exception message to log
+            } catch (IOException e) {
+                Log.e(TAG, "IOException: " + e); //print exception message to log
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //set the result which is returned by doInBackground() method to result textView
+
+            volumetxt.setText("Ukupna kubikaža dasaka palete:" + "\n" +result +"m³");
+
+        }
+    }
+
 }
 
 

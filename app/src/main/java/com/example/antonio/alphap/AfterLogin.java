@@ -57,7 +57,7 @@ public class AfterLogin extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent10 = new Intent("com.example.antonio.alphap.ClosedPal");
+                        Intent intent10 = new Intent("com.example.antonio.alphap.ViewPlanksByPalletID");
                         startActivity(intent10);
                     }
                 }
