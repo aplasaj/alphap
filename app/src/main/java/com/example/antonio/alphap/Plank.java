@@ -43,6 +43,7 @@ public class Plank extends AppCompatActivity {
     TextView last3planks;
     int debljina;
     TextView volumetxt;
+    int idpalete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class Plank extends AppCompatActivity {
         debljina=(int)duzine.get("Debljina");
         final String klasapalete=(String) duzine.get("Klasa");
         String resultidstring = getPalID();
+        idpalete=Integer.parseInt(resultidstring);
+
         volumetxt=(TextView)findViewById(R.id.twvolume);
 
         naslov = (TextView)findViewById(R.id.textView10);
@@ -161,6 +164,7 @@ public String getPalID() {
     }
 
 
+
     public class getJsonResponse extends AsyncTask<Void,Void,String> {
         String serverUrl;
         public getJsonResponse(){
@@ -181,7 +185,7 @@ public String getPalID() {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                 String resultidstring = getPalID();
+                // String resultidstring = getPalID();
                 //dobavlja id palete koju zatvaramo
 
                 URL url = new URL(serverUrl);
@@ -193,7 +197,7 @@ public String getPalID() {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(resultidstring,"UTF-8");
+                String post_data = URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -235,6 +239,11 @@ public String getPalID() {
             Intent intent123 = new Intent("com.example.antonio.alphap.AfterLogin");
             startActivity(intent123);
         }
+    }
+    public void pregleddasaka(View view){
+        Intent intent1234567 = new Intent("com.example.antonio.alphap.PlanksFromPallet");
+        intent1234567.putExtra("idpalete",idpalete);
+        startActivity(intent1234567);
     }
     public class getlast3planks extends AsyncTask<Void,Void,String> {
         String serverUrl;

@@ -130,10 +130,11 @@ public class Plank2 extends AppCompatActivity {
             //  String duzinadaskeString=duzinadaskeR.getText().toString();
         }
 
-
-
-
-
+    }
+    public void pregleddasaka(View view){
+        Intent intent1234567 = new Intent("com.example.antonio.alphap.PlanksFromPallet");
+        intent1234567.putExtra("idpalete",idpalete);
+        startActivity(intent1234567);
     }
 
     public void Zatvaranjepalete(View view){

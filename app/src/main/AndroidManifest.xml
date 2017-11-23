@@ -73,7 +73,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewDryPallet"></activity>
+        <activity android:name=".NewDryPallet" />
+        <activity android:name=".dryplank" />
+        <activity android:name=".PlanksFromPallet">
+            <intent-filter>
+                <action android:name="com.example.antonio.alphap.PlanksFromPallet" />
+                <action android:name="com.example.antonio.alphap.Plank2" />
+                <action android:name="com.example.antonio.alphap.Plank" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

@@ -68,6 +68,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -88,11 +89,9 @@
         android:layout_height="44dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:onClick="Zatvaranjepalete"
         android:text="ZATVARANJE PALETE"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/unosdaskeupaletuGumb" />
 
@@ -129,5 +128,18 @@
         app:layout_constraintBottom_toTopOf="@+id/radiogroup"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/idpreview" />
+
+    <Button
+        android:id="@+id/btnpregleddasaka"
+        android:layout_width="377dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="pregleddasaka"
+        android:text="Pregled svih dasaka u paleti"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnzatvaranjepalete" />
 
 </android.support.constraint.ConstraintLayout>

@@ -259,8 +259,10 @@ public class OpenPal extends AppCompatActivity {
         }
     }
     public void refresh(View view) {
-        finish();
-        startActivity(getIntent());
+        final ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                list);
+        lv.setAdapter(adapter);
      }
 
 

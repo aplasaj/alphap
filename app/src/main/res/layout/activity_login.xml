@@ -22,7 +22,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="116dp"
         android:ems="10"
         android:hint="Korisničko ime"
         android:inputType="textPersonName"
@@ -40,7 +40,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Lozinka"
         android:inputType="textPassword"
@@ -52,15 +52,15 @@
     <Button
         android:id="@+id/button"
         android:layout_width="371dp"
-        android:layout_height="0dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:text="Prijava"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editpassword"
         tools:ignore="MissingConstraints" />
@@ -71,17 +71,14 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/editusername"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="36dp"
         android:text="PRIJAVA"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editusername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
@@ -97,7 +94,7 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12"
-        app:layout_constraintVertical_bias="0.06"
+        app:layout_constraintVertical_bias="0.78"
         tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>
