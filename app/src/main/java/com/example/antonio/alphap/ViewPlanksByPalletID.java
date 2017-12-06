@@ -63,7 +63,7 @@ public class ViewPlanksByPalletID extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://tehnooz.hr/jsonplankfrompalletid.php";
+            serverUrl = "http://bagremozalj.hr/jsonplankfrompalletid.php";
             mProgressDialog.show();
         }
 

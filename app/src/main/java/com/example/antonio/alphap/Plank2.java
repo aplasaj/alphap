@@ -200,7 +200,7 @@ public class Plank2 extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://tehnooz.hr/zatvaranjepalete.php";
+            serverUrl = "http://bagremozalj.hr/zatvaranjepalete.php";
             mProgressDialog.show();
         }
 
@@ -277,7 +277,7 @@ public class Plank2 extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://tehnooz.hr/last3planks.php";
+            serverUrl = "http://bagremozalj.hr/last3planks.php";
             mProgressDialog.show();
         }
 
@@ -350,7 +350,7 @@ public class Plank2 extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://tehnooz.hr/cubic.php";
+            serverUrl = "http://bagremozalj.hr/cubic.php";
             mProgressDialog.show();
         }
 

@@ -153,7 +153,7 @@ public class OpenPal extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://tehnooz.hr/openpalletinfo.php";
+            serverUrl = "http://bagremozalj.hr/openpalletinfo.php";
             mProgressDialog.show();
 
         }
@@ -280,7 +280,7 @@ public class OpenPal extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://tehnooz.hr/sveotvorenepalete.php";
+            serverUrl = "http://bagremozalj.hr/sveotvorenepalete.php";
             mProgressDialog.show();
         }
 

@@ -74,7 +74,7 @@ public class PlanksFromPallet extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://tehnooz.hr/popisdasakaupaleti.php";
+            serverUrl = "http://bagremozalj.hr/popisdasakaupaleti.php";
             mProgressDialog.show();
         }
 
