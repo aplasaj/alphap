@@ -49,6 +49,7 @@ public class Plank2 extends AppCompatActivity {
     Button insertplank;
     TextView last3planks;
     TextView volumetxt;
+    TextView plankcount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class Plank2 extends AppCompatActivity {
         insertplank=(Button)findViewById(R.id.unosdaskeupaletuGumb);
         last3planks=(TextView)findViewById(R.id.tvlast3planks);
         volumetxt=(TextView)findViewById(R.id.twvolume);
+        plankcount=(TextView)findViewById(R.id.plankcounttw);
 
         naslov = (TextView)findViewById(R.id.textView10);
         naslov.setText("UNOS DASAKA U PALETU BROJ  "+ idpalete);
@@ -75,6 +77,7 @@ public class Plank2 extends AppCompatActivity {
 
         new getlast3planks().execute();
         new getvolume().execute();
+        new getcount().execute();
 
 
 
@@ -124,7 +127,7 @@ public class Plank2 extends AppCompatActivity {
             backgroundWorker2.execute(type, duzinadaske, sirinadaske, resultid);
             new getlast3planks().execute();
             new getvolume().execute();
-
+            new getcount().execute();
             return;
 
             //  String duzinadaskeString=duzinadaskeR.getText().toString();
@@ -407,11 +410,81 @@ public class Plank2 extends AppCompatActivity {
         protected void onPostExecute(String result) {
             //set the result which is returned by doInBackground() method to result textView
 
-            volumetxt.setText("Ukupna kubikaža dasaka palete:" + "\n" +result +"m³");
+            volumetxt.setText("Kubikaža:" + "\n" +result +"m³");
 
         }
     }
+    public class getcount extends AsyncTask<Void,Void,String> {
+        String serverUrl;
+        public getcount(){
 
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //set the url from we have to fetch the json response
+            serverUrl = "http://bagremozalj.hr/getcount.php";
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+
+                //dobavlja id palete koju zatvaramo
+
+                URL url = new URL(serverUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8")+"&"
+                        +URLEncoder.encode("debljinapalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(debljina),"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine())!= null) {
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+
+            } catch (MalformedURLException e) {
+                Log.e(TAG,"MalformedURLException: "+e); //print exception message to log
+            } catch (IOException e) {
+                Log.e(TAG, "IOException: " + e); //print exception message to log
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //set the result which is returned by doInBackground() method to result textView
+
+            plankcount.setText("Dasaka:" + "\n" +result );
+
+        }
+    }
 
 
 }

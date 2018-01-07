@@ -35,7 +35,7 @@
     <TextView
         android:id="@+id/idtxtviewplankinfo"
         android:layout_width="529dp"
-        android:layout_height="508dp"
+        android:layout_height="535dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

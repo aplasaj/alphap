@@ -24,15 +24,13 @@
     <TextView
         android:id="@+id/twvolume"
         android:layout_width="131dp"
-        android:layout_height="118dp"
+        android:layout_height="58dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Kubikaža"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tvlast3planks"
-        app:layout_constraintTop_toBottomOf="@+id/UnosSirineDaskeEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/UnosSirineDaskeEditText" /> />
 
     <TextView
         android:id="@+id/tvlast3planks"
@@ -41,13 +39,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Zadnje 3 daske u paleti"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UnosSirineDaskeEditText" />
 
     <Button
         android:id="@+id/unosdaskeupaletuGumb"
         android:layout_width="380dp"
-        android:layout_height="45dp"
+        android:layout_height="59dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -65,16 +64,17 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="UNOS DASAKA U PALETU"
-        android:textSize="18sp"
+        android:textColor="#F00"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textStyle="bold" />
 
     <TextView
         android:id="@+id/idpreview"
-        android:layout_width="480dp"
-        android:layout_height="35dp"
+        android:layout_width="338dp"
+        android:layout_height="39dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -131,15 +131,24 @@
 
     <Button
         android:id="@+id/btnpregleddasaka"
-        android:layout_width="377dp"
+        android:layout_width="144dp"
         android:layout_height="47dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="pregleddasaka"
-        android:text="Pregled svih dasaka u paleti"
+        android:text="Pregled dasaka"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnzatvaranjepalete" />
+        app:layout_constraintTop_toBottomOf="@+id/plankcounttw" />
+
+    <TextView
+        android:id="@+id/plankcounttw"
+        android:layout_width="130dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="dasaka"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/twvolume" />
 
 </android.support.constraint.ConstraintLayout>
