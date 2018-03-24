@@ -43,7 +43,7 @@ public class Plank2 extends AppCompatActivity {
     int duzina1;
     int duzina2;
     int debljina;
-    int idpalete;
+    String idpalete;
     String klasapalete;
     public static final String TAG = Plank.class.getSimpleName();
     Button insertplank;
@@ -51,23 +51,29 @@ public class Plank2 extends AppCompatActivity {
     TextView volumetxt;
     TextView plankcount;
 
+    int duzinadaske;
+    int sirinadaske;
+    int resultid;
+    String iduneseni;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plank2);
         Bundle duzine = getIntent().getExtras();
-         duzina1=(int)duzine.get("Duzina1");
-         duzina2=(int)duzine.get("Duzina2");
-         debljina=(int)duzine.get("Debljina");
-         idpalete=(int)duzine.get("IDotvorene");
-         klasapalete=(String) duzine.get("Klasa");
+        duzina1=(int)duzine.get("Duzina1");
+        duzina2=(int)duzine.get("Duzina2");
+        debljina=(int)duzine.get("Debljina");
+        idpalete=(String)duzine.get("IDotvorene");
+        iduneseni=(String)duzine.get("IDuneseni");
+        klasapalete=(String) duzine.get("Klasa");
         insertplank=(Button)findViewById(R.id.unosdaskeupaletuGumb);
         last3planks=(TextView)findViewById(R.id.tvlast3planks);
         volumetxt=(TextView)findViewById(R.id.twvolume);
         plankcount=(TextView)findViewById(R.id.plankcounttw);
 
         naslov = (TextView)findViewById(R.id.textView10);
-        naslov.setText("UNOS DASAKA U PALETU BROJ  "+ idpalete);
+        naslov.setText("UNOS DASAKA U PALETU BROJ  "+ iduneseni);
 
         addRadioButtons(duzina1,duzina2);
 
@@ -102,9 +108,9 @@ public class Plank2 extends AppCompatActivity {
             //  duzinadaskeR=(EditText)findViewById(R.id.UnosDuzineDaskeEditText);
             sirinadaskeR = (EditText) findViewById(R.id.UnosSirineDaskeEditText);
             String sirinadaskeString = sirinadaskeR.getText().toString();
-            int duzinadaske = Integer.parseInt(duzinadaskeizradia);
-            int sirinadaske = Integer.parseInt(sirinadaskeString);
-            int resultid = idpalete;
+             duzinadaske = Integer.parseInt(duzinadaskeizradia);
+             sirinadaske = Integer.parseInt(sirinadaskeString);
+
 
 
             int granicaduzina = 10;
@@ -123,8 +129,9 @@ public class Plank2 extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             //  duzinadaskeR.setText("");
             sirinadaskeR.setText("");
-            BackgroundWorker2 backgroundWorker2 = new BackgroundWorker2(this); //this je context
-            backgroundWorker2.execute(type, duzinadaske, sirinadaske, resultid);
+            new insertplanks().execute();
+           // BackgroundWorker2 backgroundWorker2 = new BackgroundWorker2(this); //this je context
+          //  backgroundWorker2.execute(type, duzinadaske, sirinadaske, resultid);
             new getlast3planks().execute();
             new getvolume().execute();
             new getcount().execute();
@@ -136,7 +143,7 @@ public class Plank2 extends AppCompatActivity {
     }
     public void pregleddasaka(View view){
         Intent intent1234567 = new Intent("com.example.antonio.alphap.PlanksFromPallet");
-        intent1234567.putExtra("idpalete",idpalete);
+        intent1234567.putExtra("idpalete",iduneseni);
         startActivity(intent1234567);
     }
 
@@ -261,7 +268,7 @@ public class Plank2 extends AppCompatActivity {
             //set the result which is returned by doInBackground() method to result textView
             mProgressDialog.dismiss();
             //   duzinadaskeR.setText("");
-          //  sirinadaskeR.setText("");
+            //  sirinadaskeR.setText("");
             Intent intent123 = new Intent("com.example.antonio.alphap.AfterLogin");
             startActivity(intent123);
         }
@@ -299,7 +306,7 @@ public class Plank2 extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8");
+                String post_data = URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(iduneseni),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -343,6 +350,74 @@ public class Plank2 extends AppCompatActivity {
         }
     }
 
+    public class insertplanks extends AsyncTask<Void,Void,String> {
+        String serverUrl;
+        public insertplanks(){
+
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //set the url from we have to fetch the json response
+            serverUrl = "http://bagremozalj.hr/insertplanks.php";
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+
+                URL url = new URL(serverUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("duzinadaske","UTF-8")+"="+URLEncoder.encode(String.valueOf(duzinadaske),"UTF-8")+"&"
+                        +URLEncoder.encode("sirinadaske","UTF-8")+"="+URLEncoder.encode(String.valueOf(sirinadaske),"UTF-8")
+                        +"&"
+                        +URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(iduneseni),"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine())!= null) {
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+            } catch (MalformedURLException e) {
+                Log.e(TAG,"MalformedURLException: "+e); //print exception message to log
+            } catch (IOException e) {
+                Log.e(TAG, "IOException: " + e); //print exception message to log
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //set the result which is returned by doInBackground() method to result textView
+
+
+
+        }
+    }
+
     public class getvolume extends AsyncTask<Void,Void,String> {
         String serverUrl;
         public getvolume(){
@@ -372,7 +447,7 @@ public class Plank2 extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8")+"&"
+                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(iduneseni),"UTF-8")+"&"
                         +URLEncoder.encode("debljinapalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(debljina),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -443,8 +518,7 @@ public class Plank2 extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8")+"&"
-                        +URLEncoder.encode("debljinapalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(debljina),"UTF-8");
+                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(iduneseni),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -488,7 +562,6 @@ public class Plank2 extends AppCompatActivity {
 
 
 }
-
 
 
 

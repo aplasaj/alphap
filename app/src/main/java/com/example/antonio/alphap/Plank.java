@@ -43,8 +43,10 @@ public class Plank extends AppCompatActivity {
     TextView last3planks;
     int debljina;
     TextView volumetxt;
-    int idpalete;
+    String idpalete;
     TextView plankcount;
+    int duzinadaske;
+    int sirinadaske;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,20 +56,22 @@ public class Plank extends AppCompatActivity {
         int duzina1=(int)duzine.get("Duzina1");
         int duzina2=(int)duzine.get("Duzina2");
         debljina=(int)duzine.get("Debljina");
+        idpalete=(String)duzine.get("UneseniID");
+
         final String klasapalete=(String) duzine.get("Klasa");
-        String resultidstring = getPalID();
-        idpalete=Integer.parseInt(resultidstring);
+       // String resultidstring = getPalID();
+       // idpalete=Integer.parseInt(resultidstring);
 
         volumetxt=(TextView)findViewById(R.id.twvolume);
         plankcount=(TextView)findViewById(R.id.plankcounttw);
 
         naslov = (TextView)findViewById(R.id.textView10);
-        naslov.setText("UNOS DASAKA U PALETU BROJ  "+ resultidstring);
+        naslov.setText("UNOS DASAKA U PALETU BROJ  "+ idpalete);
 
         last3planks=(TextView)findViewById(R.id.tvlast3planks);
         addRadioButtons(duzina1,duzina2);
 
-        String resultid = getPalID();    //dobavljam id palete
+       // String resultid = getPalID();    //dobavljam id palete
         new Plank.getlast3planks().execute();
         new Plank.getvolume().execute();
         new Plank.getcount().execute();
@@ -75,15 +79,15 @@ public class Plank extends AppCompatActivity {
         final TextView txtview5 =(TextView)findViewById(R.id.idpreview);
           txtview5.setText("Paleta je klase "+ klasapalete + " ,duljine "+ duzina1+ "-"+  duzina2+ " ,debljine "+ debljina);
     }
-public String getPalID() {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);    //dobavljam id palete
-    String resultid = prefs.getString("resultid", "no id"); //no id: default value
-    return resultid;
-}
+//public String getPalID() {
+//    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);    //dobavljam id palete
+//    String resultid = prefs.getString("resultid", "no id"); //no id: default value
+//    return resultid;
+//}
 
 
  public void Unosdaske(View view){
-     String resultidstring = getPalID();    //dobavljam id palete
+   //  String resultidstring = getPalID();    //dobavljam id palete
      EditText sirinadaskeedittext = (EditText) findViewById(R.id.UnosSirineDaskeEditText);
      String testic=sirinadaskeedittext.getText().toString();
      if ((testic.equals(""))||(duzinadaskeizradia.equals("0"))){
@@ -100,17 +104,18 @@ public String getPalID() {
    //  String duzinadaskeString=duzinadaskeR.getText().toString();
      String sirinadaskeString=sirinadaskeR.getText().toString();
 
-     int duzinadaske=Integer.parseInt(duzinadaskeizradia);
-     int sirinadaske=Integer.parseInt(sirinadaskeString);
-     int  resultid= Integer.parseInt(resultidstring);
-     int type=9999;
+      duzinadaske=Integer.parseInt(duzinadaskeizradia);
+      sirinadaske=Integer.parseInt(sirinadaskeString);
+   //  int  resultid= Integer.parseInt(resultidstring);
+   //  int type=9999;
      Toast.makeText(Plank.this,"Daska unešena",
              Toast.LENGTH_SHORT).show();
    //  duzinadaskeR.setText("");
      sirinadaskeR.setText("");
 
-     BackgroundWorker2 backgroundWorker2 = new BackgroundWorker2(this); //this je context
-     backgroundWorker2.execute(type,duzinadaske,sirinadaske,resultid);
+  //   BackgroundWorker2 backgroundWorker2 = new BackgroundWorker2(this); //this je context
+  //   backgroundWorker2.execute(type,duzinadaske,sirinadaske,resultid);
+         new Plank.insertplanks().execute();
          new Plank.getlast3planks().execute();
          new Plank.getvolume().execute();
          new Plank.getcount().execute();
@@ -273,7 +278,7 @@ public String getPalID() {
             try {
 
                 //dobavlja id palete koju zatvaramo
-                String idpalete = getPalID();
+               // String idpalete = getPalID();
                 URL url = new URL(serverUrl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
@@ -326,6 +331,73 @@ public String getPalID() {
 
         }
     }
+    public class insertplanks extends AsyncTask<Void,Void,String> {
+        String serverUrl;
+        public insertplanks(){
+
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //set the url from we have to fetch the json response
+            serverUrl = "http://bagremozalj.hr/insertplanks.php";
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+
+                URL url = new URL(serverUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("duzinadaske","UTF-8")+"="+URLEncoder.encode(String.valueOf(duzinadaske),"UTF-8")+"&"
+                        +URLEncoder.encode("sirinadaske","UTF-8")+"="+URLEncoder.encode(String.valueOf(sirinadaske),"UTF-8")
+                        +"&"
+                        +URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine())!= null) {
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+            } catch (MalformedURLException e) {
+                Log.e(TAG,"MalformedURLException: "+e); //print exception message to log
+            } catch (IOException e) {
+                Log.e(TAG, "IOException: " + e); //print exception message to log
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //set the result which is returned by doInBackground() method to result textView
+
+
+
+        }
+    }
 
     public class getvolume extends AsyncTask<Void,Void,String> {
         String serverUrl;
@@ -344,7 +416,7 @@ public String getPalID() {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                String idpalete = getPalID();
+           //     String idpalete = getPalID();
                 //dobavlja id palete koju zatvaramo
 
                 URL url = new URL(serverUrl);

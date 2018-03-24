@@ -29,7 +29,7 @@ public class PlanksFromPallet extends AppCompatActivity {
     String JSON_RESPONSE;
     public static final String TAG = OpenPal.class.getSimpleName();
     private ListView lview;
-    int idpalete;
+    String idpalete;
     TextView twmain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class PlanksFromPallet extends AppCompatActivity {
         lview = (ListView)findViewById(R.id.listid);
         twmain= (TextView)findViewById(R.id.textView14);
         Bundle duzine = getIntent().getExtras();
-        idpalete=(int)duzine.get("idpalete");
+        idpalete=(String)duzine.get("idpalete");
         twmain.setText("Popis dasaka u paleti broj:"+ idpalete);
         new getJsonResponse().execute();
 
