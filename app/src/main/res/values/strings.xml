@@ -91,4 +91,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="kreiraj_paletu">Kreiraj paletu</string>
+    <string name="nova_paleta">NOVA PALETA</string>
+    <string name="natrag">Natrag</string>
 </resources>

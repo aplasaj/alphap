@@ -92,7 +92,7 @@ public class OpenPal extends AppCompatActivity {
                 new getJsonResponse2().execute();
 
                 android.support.v7.app.AlertDialog.Builder openpalletdialog = new android.support.v7.app.AlertDialog.Builder(OpenPal.this);
-                openpalletdialog.setMessage("Želite li unositi daske u odabranu paletu? Odabrana je paleta broj: "+ iduneseni+"M"+item+"M"+idinkrementalni+ "  (ostale informacije o odabranoj paleti su prikazane na vrhu zaslona)" )
+                openpalletdialog.setMessage("Želite li unositi daske u odabranu paletu? Odabrana je paleta broj: "+ iduneseni+ "  (ostale informacije o odabranoj paleti su prikazane na vrhu zaslona)" )
                         .setCancelable(false)
                         .setPositiveButton("Da", new DialogInterface.OnClickListener() {
                             @Override

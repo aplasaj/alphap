@@ -51,7 +51,7 @@ public class NewPallet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pallet);
-        BackFromNewPallet();
+      //  BackFromNewPallet();
 //        insPlank();
 
         odabraniID=(EditText)findViewById(R.id.odabraniIDedittext);
@@ -201,8 +201,8 @@ public void preUpload(View view ) {
             {
                 provjeraZauzetostiIDa="mrkva";
                 AlertDialog.Builder zauzetID = new AlertDialog.Builder(NewPallet.this);
-                zauzetID.setMessage("Paleta nije kreirana jer već postoji paleta istog broja i klase ("+potpuniOdabraniID+provjeraZauzetostiIDa+")." +
-                        " Molimo provjerite broj palete ili provjerite je li paleta koju pokušavate kreirati već kreirana");
+                zauzetID.setMessage("Paleta nije kreirana jer već postoji paleta istog broja i klase ("+potpuniOdabraniID+")." +
+                        " Molimo provjerite broj i klasu palete ili provjerite je li paleta koju pokušavate kreirati već kreirana");
                 zauzetID.setTitle("Paleta već postoji");
                 zauzetID.setPositiveButton("OK", null);
                 zauzetID.setCancelable(true);

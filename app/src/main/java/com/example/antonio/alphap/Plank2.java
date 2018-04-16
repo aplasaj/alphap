@@ -73,7 +73,7 @@ public class Plank2 extends AppCompatActivity {
         plankcount=(TextView)findViewById(R.id.plankcounttw);
 
         naslov = (TextView)findViewById(R.id.textView10);
-        naslov.setText("UNOS DASAKA U PALETU BROJ  "+ iduneseni);
+        naslov.setText("PALETA "+ iduneseni);
 
         addRadioButtons(duzina1,duzina2);
 
@@ -181,6 +181,7 @@ public class Plank2 extends AppCompatActivity {
                 RadioButton rdbtn = new RadioButton(this);
                 rdbtn.setId((row * 2) + i);
                 rdbtn.setText("" + rdbtn.getId());
+                rdbtn.setTextAppearance(this, android.R.style.TextAppearance_Large);
                 duzineradio.addView(rdbtn);
 
             }
@@ -485,7 +486,7 @@ public class Plank2 extends AppCompatActivity {
         protected void onPostExecute(String result) {
             //set the result which is returned by doInBackground() method to result textView
 
-            volumetxt.setText("Kubikaža:" + "\n" +result +"m³");
+            volumetxt.setText("Kubikaža: "  +result +"m³");
 
         }
     }
@@ -555,9 +556,14 @@ public class Plank2 extends AppCompatActivity {
         protected void onPostExecute(String result) {
             //set the result which is returned by doInBackground() method to result textView
 
-            plankcount.setText("Dasaka:" + "\n" +result );
+            plankcount.setText("Dasaka: " +result );
 
         }
+    }
+
+    public void otherPallets(View view) {
+        Intent intent111123 = new Intent("com.example.antonio.alphap.OpenPal");
+        startActivity(intent111123);
     }
 
 
