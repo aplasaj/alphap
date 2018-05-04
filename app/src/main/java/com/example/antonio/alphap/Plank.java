@@ -158,6 +158,7 @@ public class Plank extends AppCompatActivity {
                 RadioButton rdbtn = new RadioButton(this);
                 rdbtn.setId((row * 2) + i);
                 rdbtn.setText("" + rdbtn.getId());
+                rdbtn.setTextAppearance(this, android.R.style.TextAppearance_Large);
                 duzineradio.addView(rdbtn);
 
             }

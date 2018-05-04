@@ -32,14 +32,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/idtxtviewplankinfo"
-        android:layout_width="529dp"
-        android:layout_height="535dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+    <ScrollView
+        android:layout_width="584dp"
+        android:layout_height="397dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnidfindplanks" />
+        app:layout_constraintTop_toBottomOf="@+id/btnidfindplanks"
+        tools:layout_editor_absoluteX="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/idtxtviewplankinfo"
+                android:layout_width="match_parent"
+                android:layout_height="535dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnidfindplanks" />
+        </LinearLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>
