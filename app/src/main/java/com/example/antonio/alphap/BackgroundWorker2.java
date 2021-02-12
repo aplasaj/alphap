@@ -34,7 +34,7 @@ public class BackgroundWorker2 extends AsyncTask<Integer, Void, String> {
         int sirinadaske = params[2];
         int resultid = params[3];
 
-        String login_url = "http://www.bagremozalj.hr/insertplanks.php";
+        String login_url = "http://tehnooz.hr/AlphaPv2/insertplanksT.php";
       //  if(type==9999) {
             try {
                 URL url = new URL(login_url);

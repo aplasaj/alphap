@@ -37,7 +37,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
         String debljina = params[3];
         String selectedClass2 = params[4];
         String odabraniID = params[5];
-        String login_url = "http://www.bagremozalj.hr/insertpallet.php";
+        String login_url = "http://tehnooz.hr/AlphaPv2/insertpalletT.php";
         if(type.equals("uploadpallet")) {
             try {
                 URL url = new URL(login_url);
@@ -96,6 +96,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("resultid", result); //InputString: from the EditText
         editor.commit();
+
+
     }
 
 

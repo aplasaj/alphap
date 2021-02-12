@@ -54,20 +54,20 @@ public class NewPallet extends AppCompatActivity {
       //  BackFromNewPallet();
 //        insPlank();
 
-        odabraniID=(EditText)findViewById(R.id.odabraniIDedittext);
-        odabraniID.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-                odabraniIDstring=odabraniID.getText().toString();
-                potpuniOdabraniID=odabraniIDstring+selectedClass2;
-                new NewPallet.idcheck().execute();
-
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
+       // odabraniID=(EditText)findViewById(R.id.odabraniIDedittext);
+//        odabraniID.addTextChangedListener(new TextWatcher() {
+//
+//            public void afterTextChanged(Editable s) {
+//                odabraniIDstring=odabraniID.getText().toString();
+//                potpuniOdabraniID=odabraniIDstring+selectedClass2;
+//             //   new NewPallet.idcheck().execute();
+//
+//            }
+//
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+//
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+//        });
 
         RadioGroup  group= (RadioGroup)findViewById(R.id.palletclasses);
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -94,7 +94,7 @@ public class NewPallet extends AppCompatActivity {
                     selectedClass2="ABCD";
                 }
                 potpuniOdabraniID=odabraniIDstring+selectedClass2;
-                new NewPallet.idcheck().execute();
+              //  new NewPallet.idcheck().execute();
             }
         });
 
@@ -118,11 +118,11 @@ public void preUpload(View view ) {
 
 }
     public void Upload(View view){
-        odabraniID=(EditText)findViewById(R.id.odabraniIDedittext);
-        odabraniIDstring=odabraniID.getText().toString();
-        potpuniOdabraniID=odabraniIDstring+selectedClass2;
+     //   odabraniID=(EditText)findViewById(R.id.odabraniIDedittext);
+      //  odabraniIDstring=odabraniID.getText().toString();
+      //  potpuniOdabraniID=odabraniIDstring+selectedClass2;
 
-        new NewPallet.idcheck().execute();
+      //  new NewPallet.idcheck().execute();
 
         duzina1 = (EditText)findViewById(R.id.plankl1);
         duzina2 = (EditText)findViewById(R.id.duzina2);
@@ -153,7 +153,7 @@ public void preUpload(View view ) {
                     });
         }
         else {
-            if (provjeraZauzetostiIDa.equals("go"))
+            if (provjeraZauzetostiIDa.equals("mrkva"))
             {
                 BackgroundWorker backgroundWorker = new BackgroundWorker(this); //this je context
                 backgroundWorker.execute(type,duz11,duz22,deb11,selectedClass2,potpuniOdabraniID);
@@ -179,10 +179,13 @@ public void preUpload(View view ) {
                                 intent33.putExtra("Klasa", selectedClass2);
                                 intent33.putExtra("Debljina", deb);
                                 intent33.putExtra("UneseniID",potpuniOdabraniID);
+                                //intent33.putExtra("idsifra", thjgfgh);
+
                                 duzina1.setText("");
                                 debljina.setText("");
                                 provjeraZauzetostiIDa="mrkva";
                                 startActivity(intent33);
+
 
                             }
                         })

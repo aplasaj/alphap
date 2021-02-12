@@ -133,7 +133,7 @@ public class PlanksFromPallet extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://bagremozalj.hr/popisdasakaupaleti.php";
+            serverUrl = "http://tehnooz.hr/AlphaPv2/popisdasakaupaletiT.php";
             mProgressDialog.show();
         }
 
@@ -235,7 +235,7 @@ public class PlanksFromPallet extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://bagremozalj.hr/deleteplank.php";
+            serverUrl = "http://tehnooz.hr/AlphaPv2/deleteplankT.php";
 
         }
 

@@ -88,11 +88,11 @@ public class OpenPal extends AppCompatActivity {
                 tw11.setText(item);
                 StringTokenizer podjelaIDeva = new StringTokenizer(item, "-");
                 idinkrementalni = podjelaIDeva.nextToken();
-                iduneseni=podjelaIDeva.nextToken();
+              //  iduneseni=podjelaIDeva.nextToken();
                 new getJsonResponse2().execute();
 
                 android.support.v7.app.AlertDialog.Builder openpalletdialog = new android.support.v7.app.AlertDialog.Builder(OpenPal.this);
-                openpalletdialog.setMessage("Želite li unositi daske u odabranu paletu? Odabrana je paleta broj: "+ iduneseni+ "  (ostale informacije o odabranoj paleti su prikazane na vrhu zaslona)" )
+                openpalletdialog.setMessage("Želite li unositi daske u odabranu paletu? Odabrana je paleta broj: "+ idinkrementalni+ "  (ostale informacije o odabranoj paleti su prikazane na vrhu zaslona)" )
                         .setCancelable(false)
                         .setPositiveButton("Da", new DialogInterface.OnClickListener() {
                             @Override
@@ -159,7 +159,7 @@ public class OpenPal extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://bagremozalj.hr/openpalletinfo.php";
+            serverUrl = "http://tehnooz.hr/AlphaPv2/openpalletinfoT.php";
             mProgressDialog.show();
 
         }
@@ -197,7 +197,7 @@ public class OpenPal extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("idotvorene","UTF-8")+"="+URLEncoder.encode(iduneseni,"UTF-8");
+                String post_data = URLEncoder.encode("idotvorene","UTF-8")+"="+URLEncoder.encode(idotvorene,"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -286,7 +286,7 @@ public class OpenPal extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://bagremozalj.hr/sveotvorenepalete.php";
+            serverUrl = "http://tehnooz.hr/AlphaPv2/sveotvorenepaleteT.php";
             mProgressDialog.show();
         }
 

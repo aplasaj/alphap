@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/alphap_13_3_18.iml" filepath="$PROJECT_DIR$/alphap_13_3_18.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/alphap_13_3_18.iml" filepath="$PROJECT_DIR$/alphap_13_3_18.iml" group="alphap_13_3_18" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="alphap_13_3_18/app" />
     </modules>
   </component>
 </project>

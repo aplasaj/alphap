@@ -35,6 +35,7 @@ import java.net.URLEncoder;
 public class Plank extends AppCompatActivity {
     EditText duzinadaskeR;
     EditText sirinadaskeR;
+    EditText inputid;
     ProgressDialog mProgressDialog;
     String JSON_RESPONSE;
     TextView naslov;
@@ -47,26 +48,34 @@ public class Plank extends AppCompatActivity {
     TextView plankcount;
     int duzinadaske;
     int sirinadaske;
-
+    int duzina1;
+    int duzina2;
+    String klasapalete;
+    String idsifra1;
+    String idinkrementalni;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plank);
         Bundle duzine = getIntent().getExtras();
-        int duzina1=(int)duzine.get("Duzina1");
-        int duzina2=(int)duzine.get("Duzina2");
+        duzina1=(int)duzine.get("Duzina1");
+        duzina2=(int)duzine.get("Duzina2");
         debljina=(int)duzine.get("Debljina");
         idpalete=(String)duzine.get("UneseniID");
 
-        final String klasapalete=(String) duzine.get("Klasa");
+        klasapalete=(String) duzine.get("Klasa");
        // String resultidstring = getPalID();
        // idpalete=Integer.parseInt(resultidstring);
+
+
+        idsifra1=PreferenceManager.getDefaultSharedPreferences(this).getString("resultid", "defaultStringIfNothingFound");
+        idinkrementalni=idsifra1;
 
         volumetxt=(TextView)findViewById(R.id.twvolume);
         plankcount=(TextView)findViewById(R.id.plankcounttw);
 
         naslov = (TextView)findViewById(R.id.textView10);
-        naslov.setText("UNOS DASAKA U PALETU BROJ  "+ idpalete);
+        naslov.setText("PALETA "+ klasapalete+debljina);
 
         last3planks=(TextView)findViewById(R.id.tvlast3planks);
         addRadioButtons(duzina1,duzina2);
@@ -77,7 +86,7 @@ public class Plank extends AppCompatActivity {
         new Plank.getcount().execute();
 
         final TextView txtview5 =(TextView)findViewById(R.id.idpreview);
-          txtview5.setText("Paleta je klase "+ klasapalete + " ,duljine "+ duzina1+ "-"+  duzina2+ " ,debljine "+ debljina);
+          txtview5.setText("Paleta je klase "+ klasapalete + " ,duljine "+ duzina1+ "-"+  duzina2+ " ,debljine "+ debljina +" Sifre:"+idinkrementalni);
     }
 //public String getPalID() {
 //    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);    //dobavljam id palete
@@ -126,14 +135,22 @@ public class Plank extends AppCompatActivity {
  }
 
     public void Zatvaranjepalete(View view){
-        AlertDialog.Builder closingpalletdialog = new AlertDialog.Builder(Plank.this);
+        final AlertDialog.Builder closingpalletdialog = new AlertDialog.Builder(Plank.this);
         closingpalletdialog.setMessage("Jeste li sigurni da želite zatvoriti paletu? Nakon zatvaranja palete unos dasaka u paletu više nije moguć")
                 .setCancelable(false)
                 .setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        new Plank.getJsonResponse().execute();
+                        Intent intent334 = new Intent("com.example.antonio.alphap.ClosingPallet");
+                        intent334.putExtra("Duzina1", duzina1);
+                        intent334.putExtra("Duzina2", duzina2);
+                        intent334.putExtra("Klasa", klasapalete);
+                        intent334.putExtra("Debljina", debljina);
+                        intent334.putExtra("IDinkrementalni", idinkrementalni);
+
+                        startActivity(intent334);
+                        // new Plank.getJsonResponse().execute();
                     }
                 })
                 .setNegativeButton("Ne", new DialogInterface.OnClickListener() {
@@ -208,7 +225,7 @@ public class Plank extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8");
+                String post_data = URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(String.valueOf(idsifra1),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -253,7 +270,7 @@ public class Plank extends AppCompatActivity {
     }
     public void pregleddasaka(View view){
         Intent intent1234567 = new Intent("com.example.antonio.alphap.PlanksFromPallet");
-        intent1234567.putExtra("idpalete",idpalete);
+        intent1234567.putExtra("idpalete",idsifra1);
         startActivity(intent1234567);
     }
     public class getlast3planks extends AsyncTask<Void,Void,String> {
@@ -269,7 +286,7 @@ public class Plank extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://bagremozalj.hr/last3planks.php";
+            serverUrl = "http://tehnooz.hr/AlphaPv2/last3planksT.php";
             mProgressDialog.show();
 
         }
@@ -289,7 +306,7 @@ public class Plank extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8");
+                String post_data = URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(idsifra1),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -342,7 +359,7 @@ public class Plank extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://bagremozalj.hr/insertplanks.php";
+            serverUrl = "http://tehnooz.hr/AlphaPv2/insertplanksT.php";
 
         }
 
@@ -360,7 +377,7 @@ public class Plank extends AppCompatActivity {
                 String post_data = URLEncoder.encode("duzinadaske","UTF-8")+"="+URLEncoder.encode(String.valueOf(duzinadaske),"UTF-8")+"&"
                         +URLEncoder.encode("sirinadaske","UTF-8")+"="+URLEncoder.encode(String.valueOf(sirinadaske),"UTF-8")
                         +"&"
-                        +URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8");
+                        +URLEncoder.encode("idpalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(idsifra1),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -410,7 +427,7 @@ public class Plank extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://bagremozalj.hr/cubic.php";
+            serverUrl = "http://tehnooz.hr/AlphaPv2/cubicT.php";
             mProgressDialog.show();
         }
 
@@ -429,7 +446,7 @@ public class Plank extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8")+"&"
+                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(idsifra1),"UTF-8")+"&"
                         +URLEncoder.encode("debljinapalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(debljina),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -481,7 +498,7 @@ public class Plank extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //set the url from we have to fetch the json response
-            serverUrl = "http://bagremozalj.hr/getcount.php";
+            serverUrl = "http://tehnooz.hr/AlphaPv2/getcountT.php";
             mProgressDialog.show();
         }
 
@@ -500,7 +517,7 @@ public class Plank extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(idpalete),"UTF-8")+"&"
+                String post_data = URLEncoder.encode("idpalete1","UTF-8")+"="+URLEncoder.encode(String.valueOf(idsifra1),"UTF-8")+"&"
                         +URLEncoder.encode("debljinapalete","UTF-8")+"="+URLEncoder.encode(String.valueOf(debljina),"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -541,6 +558,12 @@ public class Plank extends AppCompatActivity {
             plankcount.setText("Dasaka:" + "\n" +result );
 
         }
+    }
+
+
+    public void otherPallets(View view) {
+        Intent intent111123 = new Intent("com.example.antonio.alphap.OpenPal");
+        startActivity(intent111123);
     }
 
 }
